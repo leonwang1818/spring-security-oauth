@@ -54,7 +54,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .resourceIds("res")
                 .authorizedGrantTypes("authorization_code","refresh_token")
                 .scopes("all")
-                .redirectUris("https://cn.bing.com");
+                .redirectUris("https://cn.bing.com")
+                .autoApprove(true); //登录后绕过批准询问(/oauth/confirm_access);
     }
 
     @Override
