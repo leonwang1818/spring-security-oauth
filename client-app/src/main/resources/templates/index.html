@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户端网页</title>
+</head>
+<body>
+    <h1>你好，朋友</h1>
+    <a href="http://localhost:8080/oauth/authorize?client_id=xiaoQian&response_type=code&scope=all&redirect_uri=http://localhost:8082/index.html">
+      第三方登录
+    </a>
+    <h1 th:text="${msg}"></h1>
+</body>
+</html>
