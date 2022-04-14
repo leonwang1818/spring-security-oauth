@@ -35,6 +35,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     ClientDetailsService clientDetailsService;
 
+    @Autowired
+    JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired
+    CustomAdditionalInformation customAdditionalInformation;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()").allowFormAuthenticationForClients();
@@ -62,8 +68,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         services.setClientDetailsService(clientDetailsService);
         services.setSupportRefreshToken(true);
         services.setTokenStore(tokenStore);
-        services.setAccessTokenValiditySeconds(60 * 60 * 2);
-        services.setRefreshTokenValiditySeconds(60 * 60 * 24 * 3);
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter, customAdditionalInformation));
+        services.setTokenEnhancer(tokenEnhancerChain);
         return services;
     }
 
